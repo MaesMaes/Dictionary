@@ -39,10 +39,17 @@ class App
             $obj->color = Good::getDictionaryValue( $colors, $obj->title );
 
             $obj->sizeAndPrice[$obj->size] = $p->findPriceByGoodID( $obj->ID1C );
+            $obj->sizeAndTitles[$obj->size] = $obj->title;
+            $obj->sizeAndIds[$obj->size] = $obj->ID1C;
+            $obj->sizeAndAmount[$obj->size] = $p->findCntByGoodID( $obj->ID1C );
+
+            $obj->basicUnit = $p->findBasicUnitByGoodID( $obj->ID1C );
 
             if( !Good::mergeGoods( $goodsList,  $obj ) )
                 $goodsList[] = $obj;
 
+            echo $i . "<br/>";
+            $i++;
         }
 
         file_put_contents( 'app/tmp/ModelsList.json', json_encode( $goodsList )  );

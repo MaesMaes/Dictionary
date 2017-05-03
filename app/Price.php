@@ -41,4 +41,31 @@ class Price
 
         return $price;
     }
+
+    public function findCntByGoodID( $id )
+    {
+        $entries = self::$xPath->query('//Предложения/Предложение/Ид[.="' . $id . '"]/../Количество', self::$root);
+        $count = $entries->item(0)->nodeValue;
+
+        return $count;
+    }
+
+    public function findBasicUnitByGoodID( $id )
+    {
+        $entries = self::$xPath->query('//Предложения/Предложение/Ид[.="' . $id . '"]/../БазоваяЕдиница/@Код', self::$root);
+        $code = $entries->item(0)->nodeValue;
+        $entries = self::$xPath->query('//Предложения/Предложение/Ид[.="' . $id . '"]/../БазоваяЕдиница/@НаименованиеПолное', self::$root);
+        $fullName = $entries->item(0)->nodeValue;
+        $entries = self::$xPath->query('//Предложения/Предложение/Ид[.="' . $id . '"]/../БазоваяЕдиница/@МеждународноеСокращение', self::$root);
+        $intAbbreviation = $entries->item(0)->nodeValue;
+        $entries = self::$xPath->query('//Предложения/Предложение/Ид[.="' . $id . '"]/../БазоваяЕдиница', self::$root);
+        $value = $entries->item(0)->nodeValue;
+
+        return [
+            'code' => $code,
+            'fullName' => $fullName,
+            'intAbbreviation' => $intAbbreviation,
+            'value' => $value,
+        ];
+    }
 }

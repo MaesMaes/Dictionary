@@ -25,10 +25,15 @@ class Good
     public $vendors = array();
     public $images = array();
     public $sizeAndPrice = array();
+    public $sizeAndTitles = array();
+    public $sizeAndIds = array();
+    public $sizeAndAmount = array();
     public $group = array();
     public $size;
     public $producer;
+    public $count;
     public $catalog = array();
+    public $basicUnit = array();
     static private $catalogDictionary = array(
         'Одежда' => [
             'Аляски',
@@ -40,7 +45,7 @@ class Good
             'свитера',
             'толстовки',
             'футболки',
-            'эголовные уборы',
+            'головные уборы',
             'рубашки',
             'лайнеры',
             'термобелье',
@@ -173,6 +178,10 @@ class Good
                 {
                     $good->sizes[] = $obj->size;
                     $good->vendors[] = $obj->vendor;
+
+                    $good->sizeAndTitles = array_merge( $good->sizeAndTitles, $obj->sizeAndTitles );
+                    $good->sizeAndIds = array_merge( $good->sizeAndIds, $obj->sizeAndIds );
+                    $good->sizeAndAmount = array_merge( $good->sizeAndAmount, $obj->sizeAndAmount );
 
                     if( !is_numeric( $obj->size ) )
                         $good->sizeAndPrice = array_merge( $good->sizeAndPrice, $obj->sizeAndPrice );
